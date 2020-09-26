@@ -3,15 +3,15 @@ var ctx, vcanvas;
 var head = {
     x: null,
     y: null,
-    wh: 30
+    wh: 20
 };
 var food = {
     x: 300,
     y: 300,
-    wh: 30
+    wh: 20
 };
 var r_left, r_right, r_up, r_down;
-var speed = 10;
+var speed = 20;
 
 function update() {
     //head.x += 3;
@@ -29,6 +29,33 @@ function update() {
     }
 }
 
+
+function eat(pos) {
+    var dx = head.x - pos.x;
+    var dy = head.y - pos.y;
+    var d;
+
+    d = Math.sqrt(dx * dx + dy * dy);
+    if (d < 1) {
+        console.log("충돌함");
+        return true;
+    } else {
+        return false;
+    }
+    
+    //1. 속도를 줄인다
+    //2. 충돌범위를 넓힌다.
+    //3. 
+}
+
+function newLocation() {
+    //food의 x, y좌표를 랜덤으로 바꿔주면 되겠다.
+    //Math.random -> 0~0.9999999...까지를 반환
+    food.x = Math.floor(Math.random() * vcanvas.width / speed) * speed;
+    //133
+    food.y = Math.floor(Math.random() * vcanvas.height / speed) * speed;
+}
+
 function drawHead() {
     ctx.fillStyle = "black";
     ctx.fillRect(head.x, head.y, head.wh, head.wh);
@@ -44,6 +71,9 @@ function drawFood() {
 function gameLoop() {
     ctx.clearRect(0, 0, vcanvas.width, vcanvas.height);
     update();
+    if(eat(food) === true) {
+        newLocation();
+    }
     drawHead();
     drawFood();
 }
@@ -56,7 +86,7 @@ function init() {
     //ctx.fillRect(head.x, head.y, head.wh, head.wh);
     //ctx.fill();
 
-    setInterval(gameLoop, 33);
+    setInterval(gameLoop, 50);
 }
 
 function set_key() {
