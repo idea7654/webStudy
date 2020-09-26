@@ -1,6 +1,6 @@
 var 변수명 = 값;
 var 변수명; => var 변수명 = null;
-var food = {x: null, y: null};
+var food = {x: null, y: null}; === var x, y = null;
 var s;
 
 class랑 비슷한 개념의 생성자 함수
